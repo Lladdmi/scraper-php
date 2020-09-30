@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+ {% block body %}
+     {{ encore_entry_script_tags('app') }}
+     {{ encore_entry_script_tags('scripts') }}
+     <div class="container-fluid d-flex justify-content-between">
+         <div class="col-xl-6">
+             <table class="table text-center">
+                 <thead>
+                 <tr>
+                     <th>name</th>
+                     <th>url</th>
+                     <th>snapshot</th>
+                     <th>action</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for website in websites %}
+                     <tr>
+                         <td>{{ website.name }}</td>
+                         <td>{{ website.url }}</td>
+                         {% if website.html is empty %}
+                             <td> empty</td>
+                         {% else %}
+                             <td> saved</td>
+                         {% endif %}
+                         <td>
+                             <button class="btn btn-sm btn-outline-dark btn-save" value={{ website.url }}>save</button>
+                             <button class="btn btn-sm btn-outline-dark btn-check" value={{ website.url }}>check</button>
+                         </td>
+
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+         </div>
+         <div class="col-xl-6">
+             <div id="code_difference">
+                 <pre id="display"></pre>
+             </div>
+         </div>
+     </div>
+
+
+     <script>
+         function showDiff(old_html, new_html) {
+             const one = new_html,
+                 other = old_html,
+                 color = '',
+                 span = null;
+
+             const diff = Diff.diffChars(one, other),
+                 display = document.getElementById('display'),
+                 fragment = document.createDocumentFragment();
+
+             display.innerText = "";
+
+             diff.forEach((part) => {
+                 // green for additions, red for deletions
+                 // grey for common parts
+                 let color, cls;
+                 if (part.added) {
+                     color = cls = 'green'
+                 } else if (part.removed) {
+                     color = cls = 'red'
+                 } else {
+                     color = 'grey'
+                 }
+                 // const color = part.added ? 'green' :
+                 //     part.removed ? 'red' : 'grey';
+                 let span = document.createElement('span');
+                 span.style.color = color;
+                 $(span).addClass(cls)
+                 span.appendChild(document
+                     .createTextNode(part.value));
+                 fragment.appendChild(span);
+             });
+
+             display.appendChild(fragment);
+         }
+     </script>
+ {% endblock %}
