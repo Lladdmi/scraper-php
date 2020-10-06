@@ -56,8 +56,8 @@ class WebsiteController extends AbstractController
         $result = new JsonResponse();
         $result->setData([
             'status' => $code,
-            'new_html' => $html,
-            'old_html' => $old_html,
+            'new_html' => trim($html),
+            'old_html' => trim($old_html),
             'similarity' => $similarity
         ]);
         return($result);

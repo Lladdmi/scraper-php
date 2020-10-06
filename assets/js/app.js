@@ -18,6 +18,7 @@ const Diff = require('diff/dist/diff')
 global.Diff = global.Diff = Diff;
 
 require('bootstrap');
+require('vue')
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 

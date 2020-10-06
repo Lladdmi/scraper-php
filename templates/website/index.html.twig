@@ -26,34 +26,102 @@
                          {% endif %}
                          <td>
                              <button class="btn btn-sm btn-outline-dark btn-save" value={{ website.url }}>save</button>
-                             <button class="btn btn-sm btn-outline-dark btn-check" value={{ website.url }}>check</button>
+                             <button class="btn btn-sm btn-outline-dark btn-check" value={{ website.url }}>check
+                             </button>
                          </td>
-
                      </tr>
                  {% endfor %}
                  </tbody>
              </table>
+             <div class="card">
+                 <table class="table text-center table-sm small">
+                     <thead>
+                         <tr>
+                             <th>typ</th>
+                             <th>zmiana</th>
+                             <th>element</th>
+                             <th>akcja</th>
+                         </tr>
+                     </thead>
+                     <tbody id="changes">
+                         <tr>
+                             <td></td>
+                             <td></td>
+                             <td></td>
+                             <td><button class="btn btn-sm btn-outline-dark p-1">Skocz</button></td>
+                         </tr>
+                     </tbody>
+                 </table>
+             </div>
          </div>
          <div class="col-xl-6">
-             <div id="code_difference">
-                 <pre id="display"></pre>
+             <div class="accordion" id="accordionExample">
+                 <div class="card d-flex flex-row">
+                     <div class="card-header" id="headingOne">
+                         <h5 class="mb-0">
+                             <button class="btn btn-link" type="button" data-toggle="collapse"
+                                     data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                 HTML
+                             </button>
+                         </h5>
+                     </div>
+                     <div class="card-header" id="headingTwo">
+                         <h5 class="mb-0">
+                             <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                     data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                 Preview
+                             </button>
+                         </h5>
+                     </div>
+                 </div>
+                 <div class="card">
+                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                          data-parent="#accordionExample">
+                         <div class="card-body">
+                             <div id="code_difference">
+                                 <pre id="display" style="height: 95vh"></pre>
+                             </div>
+                         </div>
+                     </div>
+                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                          data-parent="#accordionExample">
+                         <div class="card-body">
+                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                             squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
+                             nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                             single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
+                             beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
+                             vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
+                             you probably haven't heard of them accusamus labore sustainable VHS.
+                         </div>
+                     </div>
+                 </div>
              </div>
          </div>
      </div>
 
-
      <script>
          function showDiff(old_html, new_html) {
-             const one = new_html,
-                 other = old_html,
+             const one = old_html,
+                 other = new_html,
                  color = '',
                  span = null;
 
-             const diff = Diff.diffChars(one, other),
+             const diff = Diff.diffLines(one, other),
                  display = document.getElementById('display'),
                  fragment = document.createDocumentFragment();
 
              display.innerText = "";
+             let diffTableData = [];
+             diff.forEach((el) => {
+                 if (el.removed || el.added){
+                     diffTableData.push({
+                         'type': el.removed ? 'removed' : 'added',
+                         'change': (el.value).replace(/(\r\n|\n|\r)/gm, "").trim(),
+                     })
+                 }
+
+             })
 
              diff.forEach((part) => {
                  // green for additions, red for deletions
@@ -77,6 +145,19 @@
              });
 
              display.appendChild(fragment);
+             $('#html_prev').data('html', fragment);
+
+             return diffTableData;
+         }
+
+         function showDiffTable(data) {
+             console.log(data)
+                let table = $('#changes');
+             data.forEach((el) => {
+                 table.append(`<tr><tdl">${el.type}</td><td>${el.change}</td><td></td><td></td></tr>`)
+             })
+
          }
      </script>
+     {{ encore_entry_script_tags('vue') }}
  {% endblock %}

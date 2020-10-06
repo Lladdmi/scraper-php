@@ -9,10 +9,10 @@ $(document).ready(function(){
             },
             success: function(data) {
                 // $('#display').text('');
-                // if (data.data.old_html && data.data.new_html){
-                //     showDiff(data.data.old_html, data.data.new_html)
-                // }
-                showDiff(data['old_html'], data['new_html'])
+                if (data['old_html'] && data['new_html']) {
+                    let diff_data = showDiff(data['old_html'], data['new_html']);
+                    showDiffTable(diff_data);
+                }
                 console.log(data)
             },
             statusCode:{

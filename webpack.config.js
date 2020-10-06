@@ -24,8 +24,8 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
-    // .addEntry('diff', './assets/js/diff.js')
     .addEntry('scripts', './assets/js/scripts.js')
+    .addEntry('vue', './assets/js/main.js')
 
     .addStyleEntry('global', './assets/css/global.scss')
 
@@ -57,6 +57,8 @@ Encore
 
     // enables Sass/SCSS support
     .enableSassLoader()
+
+    .enableVueLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
