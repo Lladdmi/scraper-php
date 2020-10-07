@@ -46,10 +46,13 @@ class WebsiteController extends AbstractController
         $old_html = $website->getHtml();
 
         $client = new Client();
+        $client->setServerParameter('HTTP_USER_AGENT', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:81.0) Gecko/20100101 Firefox/81.0');
+
         $crawler = $client->request('GET', $url);
 
         $html = $crawler->html();
         $response = $client->getInternalResponse();
+        dump($response);
         $code = $response->getStatusCode();
         similar_text($old_html, $html, $similarity);
 

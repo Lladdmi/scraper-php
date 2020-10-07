@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $(".btn-check").click(function(e) {
-        e.preventDefault();
+        // e.preventDefault();
         $.ajax({
             type: "POST",
             url: "/check",
@@ -8,16 +8,47 @@ $(document).ready(function(){
                 url: $(this).val()
             },
             success: function(data) {
-                // $('#display').text('');
+                console.log(data)
+                $('#display').text('');
+                $('#changes').children().remove();
+                $('#changes')[0].scrollIntoView({block: "start"});
                 if (data['old_html'] && data['new_html']) {
                     let diff_data = showDiff(data['old_html'], data['new_html']);
                     showDiffTable(diff_data);
                 }
-                console.log(data)
+                let statusColors = {
+                    1: 'border-secondary',
+                    2: 'border-success',
+                    3: 'border-primary',
+                    4: 'border-warning',
+                    5: 'border-danger'
+                }
+                $('.info-header').text('Status: '+data['status'])
+                let similarity = data['similarity'].toFixed(2);
+                $('.info-similarity').text(`Zgodność: ${similarity}%`);
+                let count_changes = 0;
+                console.log(count_changes)
+                count_changes = $('#changes').children().length;
+
+                $('.info-changes').text(`Ilość zmian: ${count_changes}`)
+                Object.entries(statusColors).forEach(([key,value]) => {
+                    if (String(data['status']).charAt(0) === String(key)){
+                        $('#code_info').removeClass(function (index, css) {
+                            return (css.match (/\bborder-\S+/g) || []).join(' ');
+                        });
+                        $('#code_info').addClass(value);
+                    }
+                })
             },
             statusCode:{
                 500: function () {
+                    $('.info-header').text('Status: brak');
+                    $('.info-similarity').text(`Strona nie istnieje`);
                     let result = {'status': 500}
+                    console.log(result)
+                },
+                502: function () {
+                    let result = {'status': 502}
                     console.log(result)
                 }
             }
@@ -25,7 +56,7 @@ $(document).ready(function(){
     });
 
     $(".btn-save").click(function(e) {
-        e.preventDefault();
+        // e.preventDefault();
         $.ajax({
             type: "POST",
             url: "/save",
@@ -37,8 +68,15 @@ $(document).ready(function(){
             },
             statusCode:{
                 500: function () {
+                    $('.info-header').text('Status: brak');
+                    $('.info-similarity').text(`Strona nie istnieje`);
                     let result = {'status': 500};
-                    alert('Nie można zapisac, podana strona nie istnieje')
+                    console.log(result)
+                },
+                502: function () {
+                    $('.info-header').text('Status: brak');
+                    $('.info-similarity').text(`Strona nie istnieje`);
+                    let result = {'status': 502}
                     console.log(result)
                 }
             }

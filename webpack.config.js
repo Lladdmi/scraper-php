@@ -28,6 +28,7 @@ Encore
     .addEntry('vue', './assets/js/main.js')
 
     .addStyleEntry('global', './assets/css/global.scss')
+    .addStyleEntry('css', './assets/css/app.css')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

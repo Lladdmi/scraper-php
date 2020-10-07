@@ -11,14 +11,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96a0a7ca-0fb3-4a4c-a3f6-74d22d01122d" name="Default Changelist" comment="update">
-      <change afterPath="$PROJECT_DIR$/assets/js/HtmlPreview.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/js/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/website/changes.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/scripts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/WebsiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/WebsiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/website/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/website/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
@@ -191,7 +191,7 @@
       <workItem from="1601538441525" duration="10000" />
       <workItem from="1601539575636" duration="9000" />
       <workItem from="1601560389682" duration="10383000" />
-      <workItem from="1601903611183" duration="3179000" />
+      <workItem from="1601903611183" duration="28787000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1601468803951</created>
@@ -214,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601468925596</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="update">
+      <created>1601965920556</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1601965920556</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,9 +261,13 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2713" y="75" width="1440" height="724" key="dock-window-1/58.27.1862.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601453369169" />
-    <state x="2572" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1601451959281">
+    <state x="2600" y="279" width="745" height="522" key="find.popup" timestamp="1602069798589">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2572" y="239" width="672" height="678" key="search.everywhere.popup/58.27.1862.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601451959281" />
+    <state x="2600" y="279" width="745" height="522" key="find.popup/58.27.1862.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1602069798589" />
+    <state x="2572" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1602052826439">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2572" y="239" width="672" height="678" key="search.everywhere.popup/58.27.1862.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1602052826439" />
   </component>
 </project>

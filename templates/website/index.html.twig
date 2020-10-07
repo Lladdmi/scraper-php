@@ -1,39 +1,50 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    {{ encore_entry_link_tags('global') }}
+    {{ encore_entry_link_tags('css') }}
+    <style>
+        #changes tr td{
+            vertical-align: baseline;
+        }
+    </style>
+{% endblock %}
  {% block body %}
      {{ encore_entry_script_tags('app') }}
      {{ encore_entry_script_tags('scripts') }}
      <div class="container-fluid d-flex justify-content-between">
          <div class="col-xl-6">
-             <table class="table text-center">
-                 <thead>
-                 <tr>
-                     <th>name</th>
-                     <th>url</th>
-                     <th>snapshot</th>
-                     <th>action</th>
-                 </tr>
-                 </thead>
-                 <tbody>
-                 {% for website in websites %}
+             <div id="websites-card">
+                 <table class="table text-center">
+                     <thead>
                      <tr>
-                         <td>{{ website.name }}</td>
-                         <td>{{ website.url }}</td>
-                         {% if website.html is empty %}
-                             <td> empty</td>
-                         {% else %}
-                             <td> saved</td>
-                         {% endif %}
-                         <td>
-                             <button class="btn btn-sm btn-outline-dark btn-save" value={{ website.url }}>save</button>
-                             <button class="btn btn-sm btn-outline-dark btn-check" value={{ website.url }}>check
-                             </button>
-                         </td>
+                         <th>name</th>
+                         <th>url</th>
+                         <th>snapshot</th>
+                         <th>action</th>
                      </tr>
-                 {% endfor %}
-                 </tbody>
-             </table>
-             <div class="card">
+                     </thead>
+                     <tbody>
+                     {% for website in websites %}
+                         <tr class="">
+                             <td>{{ website.name }}</td>
+                             <td>{{ website.url }}</td>
+                             {% if website.html is empty %}
+                                 <td> empty</td>
+                             {% else %}
+                                 <td> saved</td>
+                             {% endif %}
+                             <td>
+                                 <button class="btn btn-sm btn-outline-dark btn-save" value={{ website.url }}>save
+                                 </button>
+                                 <button class="btn btn-sm btn-outline-dark btn-check" value={{ website.url }}>check
+                                 </button>
+                             </td>
+                         </tr>
+                     {% endfor %}
+                     </tbody>
+                 </table>
+             </div>
+             <div class="card" id="changes-card">
                  <table class="table text-center table-sm small">
                      <thead>
                          <tr>
@@ -44,12 +55,6 @@
                          </tr>
                      </thead>
                      <tbody id="changes">
-                         <tr>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                             <td><button class="btn btn-sm btn-outline-dark p-1">Skocz</button></td>
-                         </tr>
                      </tbody>
                  </table>
              </div>
@@ -61,7 +66,7 @@
                          <h5 class="mb-0">
                              <button class="btn btn-link" type="button" data-toggle="collapse"
                                      data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                 HTML
+                                 Info
                              </button>
                          </h5>
                      </div>
@@ -69,7 +74,7 @@
                          <h5 class="mb-0">
                              <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
                                      data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                 Preview
+                                 HTML
                              </button>
                          </h5>
                      </div>
@@ -78,21 +83,24 @@
                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                           data-parent="#accordionExample">
                          <div class="card-body">
-                             <div id="code_difference">
-                                 <pre id="display" style="height: 95vh"></pre>
+                             <div>
+                                 <div class="card mb-3" style="" id="code_info">
+                                     <h5 class="card-header info-header"></h5>
+                                     <div class="card-body">
+                                         <p class="info-similarity"></p>
+                                         <p class="info-changes"></p>
+                                         <p class=""></p>
+                                     </div>
+                                 </div>
                              </div>
                          </div>
                      </div>
                      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                           data-parent="#accordionExample">
                          <div class="card-body">
-                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                             squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                             nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                             single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
-                             beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                             vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
-                             you probably haven't heard of them accusamus labore sustainable VHS.
+                             <div id="code_difference">
+                                 <pre id="display" style="height: 80vh"></pre>
+                             </div>
                          </div>
                      </div>
                  </div>
@@ -113,16 +121,7 @@
 
              display.innerText = "";
              let diffTableData = [];
-             diff.forEach((el) => {
-                 if (el.removed || el.added){
-                     diffTableData.push({
-                         'type': el.removed ? 'removed' : 'added',
-                         'change': (el.value).replace(/(\r\n|\n|\r)/gm, "").trim(),
-                     })
-                 }
-
-             })
-
+             let index = 0;
              diff.forEach((part) => {
                  // green for additions, red for deletions
                  // grey for common parts
@@ -137,11 +136,23 @@
                  // const color = part.added ? 'green' :
                  //     part.removed ? 'red' : 'grey';
                  let span = document.createElement('span');
+                 $(span).addClass('el-'+String(index))
                  span.style.color = color;
                  $(span).addClass(cls)
                  span.appendChild(document
                      .createTextNode(part.value));
                  fragment.appendChild(span);
+
+                 //array creator
+                 if (part.removed || part.added){
+                     diffTableData.push({
+                         'type': part.removed ? 'removed' : 'added',
+                         'change': (part.value).replace(/(\r\n|\n|\r)/gm, "").trim(),
+                         'color': part.removed ? 'text-danger' : 'text-success',
+                         'element': 'el-'+index
+                     })
+                 }
+                 index++;
              });
 
              display.appendChild(fragment);
@@ -150,13 +161,48 @@
              return diffTableData;
          }
 
-         function showDiffTable(data) {
-             console.log(data)
-                let table = $('#changes');
-             data.forEach((el) => {
-                 table.append(`<tr><tdl">${el.type}</td><td>${el.change}</td><td></td><td></td></tr>`)
-             })
+         function jumpToChange(element) {
+             console.log('element');
+         }
 
+         $.fn.glowEffect = function(start, end, duration) {
+             let el = this;
+             return this.css("a", start).animate({
+                 a: end
+             }, {
+                 duration: duration,
+                 step: function(now) {
+                     el.css("text-shadow","0px 0px "+now+"px #777");
+                 },
+                 complete: function() {
+                     el.css("text-shadow","");
+                 }
+             });
+         };
+
+         function showDiffTable(data) {
+             // console.log(data)
+             let table = $('#changes');
+             data.forEach((el) => {
+                 // console.log(el)
+                 let change = el.change.replace(/\t/g, '');
+                 table.append(`
+                    <tr>
+                        <td class="${el.color}"><b>${el.type}</b></td>
+                        <td class=""><xmp style="white-space: break-spaces;">${change}</xmp></td>
+                        <td></td>
+                        <td><button class="btn btn-sm btn-outline-dark p-1 btn-${el.element}">Skocz</button></td>
+                    </tr>
+                   `)
+                 $('.btn-'+el.element).click(()=>{
+                     let element = $('.'+el.element);
+                     element[0].scrollIntoView({behavior: "smooth", block: "center", inline: "end"});
+                     if ( !$(this).is(':animated') ){
+                         element.glowEffect(0, 40, 2000);
+                     }
+
+                 });
+             });
          }
      </script>
      {{ encore_entry_script_tags('vue') }}
