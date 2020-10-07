@@ -1,5 +1,5 @@
 #changes-card{
-    max-height: 60vh;
+    max-height: 55vh;
     overflow-y: auto;
 }
 
@@ -7,10 +7,6 @@
     max-height: 40vh;
     overflow-y: auto;
 }
-
-.rawcode {
-    resize: none;
-    border: 0;
-    outline: 0;
-    background-color: #fff;
+.table-sm th, .table-sm td {
+    padding: 0.3rem 2rem;
 }

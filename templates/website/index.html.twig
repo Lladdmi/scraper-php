@@ -13,14 +13,14 @@
      {{ encore_entry_script_tags('scripts') }}
      <div class="container-fluid d-flex justify-content-between">
          <div class="col-xl-6">
-             <div id="websites-card">
+             <div id="websites-card" class="card">
                  <table class="table text-center">
                      <thead>
-                     <tr>
-                         <th>name</th>
-                         <th>url</th>
+                     <tr style="background: white;position: sticky;top: 0;">
+                         <th>nazwa</th>
+                         <th>adres</th>
                          <th>snapshot</th>
-                         <th>action</th>
+                         <th>akcja</th>
                      </tr>
                      </thead>
                      <tbody>
@@ -47,10 +47,10 @@
              <div class="card" id="changes-card">
                  <table class="table text-center table-sm small">
                      <thead>
-                         <tr>
+                         <tr style="background: white;position: sticky;top: 0;">
                              <th>typ</th>
                              <th>zmiana</th>
-                             <th>element</th>
+{#                             <th>element</th>#}
                              <th>akcja</th>
                          </tr>
                      </thead>
@@ -78,6 +78,14 @@
                              </button>
                          </h5>
                      </div>
+                     <div class="card-header" id="headingThree">
+                         <h5 class="mb-0">
+                             <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                     data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                 Podgląd
+                             </button>
+                         </h5>
+                     </div>
                  </div>
                  <div class="card">
                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
@@ -101,6 +109,14 @@
                              <div id="code_difference">
                                  <pre id="display" style="height: 80vh"></pre>
                              </div>
+                         </div>
+                     </div>
+                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                          data-parent="#accordionExample">
+                         <div class="card-body">
+                            <div id="html_preview">
+
+                            </div>
                          </div>
                      </div>
                  </div>
@@ -190,7 +206,7 @@
                     <tr>
                         <td class="${el.color}"><b>${el.type}</b></td>
                         <td class=""><xmp style="white-space: break-spaces;">${change}</xmp></td>
-                        <td></td>
+<!--                        <td></td>-->
                         <td><button class="btn btn-sm btn-outline-dark p-1 btn-${el.element}">Skocz</button></td>
                     </tr>
                    `)
@@ -200,10 +216,8 @@
                      if ( !$(this).is(':animated') ){
                          element.glowEffect(0, 40, 2000);
                      }
-
                  });
              });
          }
      </script>
-     {{ encore_entry_script_tags('vue') }}
  {% endblock %}

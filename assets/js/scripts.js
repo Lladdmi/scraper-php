@@ -1,6 +1,12 @@
 $(document).ready(function(){
-    $(".btn-check").click(function(e) {
-        // e.preventDefault();
+    $(".btn-check").click(function() {
+        $('#code_info').removeClass(function (index, css) {
+            return (css.match (/\bborder-\S+/g) || []).join(' ');
+        });
+        $('#changes').children().remove();
+        $('#display').text('');
+        $('#html_preview').text('');
+
         $.ajax({
             type: "POST",
             url: "/check",
@@ -10,9 +16,10 @@ $(document).ready(function(){
             success: function(data) {
                 console.log(data)
                 $('#display').text('');
-                $('#changes').children().remove();
                 $('#changes')[0].scrollIntoView({block: "start"});
                 if (data['old_html'] && data['new_html']) {
+                    let html_preview = $('#html_preview');
+                    // html_preview.append(data['old_html']) //preview
                     let diff_data = showDiff(data['old_html'], data['new_html']);
                     showDiffTable(diff_data);
                 }
@@ -44,6 +51,8 @@ $(document).ready(function(){
                 500: function () {
                     $('.info-header').text('Status: brak');
                     $('.info-similarity').text(`Strona nie istnieje`);
+                    $('.info-changes').text(``)
+
                     let result = {'status': 500}
                     console.log(result)
                 },
@@ -55,8 +64,7 @@ $(document).ready(function(){
         });
     });
 
-    $(".btn-save").click(function(e) {
-        // e.preventDefault();
+    $(".btn-save").click(function() {
         $.ajax({
             type: "POST",
             url: "/save",
@@ -74,8 +82,6 @@ $(document).ready(function(){
                     console.log(result)
                 },
                 502: function () {
-                    $('.info-header').text('Status: brak');
-                    $('.info-similarity').text(`Strona nie istnieje`);
                     let result = {'status': 502}
                     console.log(result)
                 }

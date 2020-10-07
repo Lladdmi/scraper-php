@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Service\WebsiteSrv;
 use Goutte\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +46,16 @@ class WebsiteController extends AbstractController
         $website = $this->websiteSrv->findByUrl($url);
         $old_html = $website->getHtml();
 
-        $client = new Client();
+        $client = new Client(HttpClient::create(array(
+            'headers' => array(
+                'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                'Upgrade-Insecure-Requests' => '1',
+                'Save-Data' => 'on',
+                'Pragma' => 'no-cache',
+                'Cache-Control' => 'no-cache',
+                'Connection' => 'keep-alive'
+            ),
+        )));
         $client->setServerParameter('HTTP_USER_AGENT', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:81.0) Gecko/20100101 Firefox/81.0');
 
         $crawler = $client->request('GET', $url);
@@ -71,6 +81,7 @@ class WebsiteController extends AbstractController
      */
     public function saveSnapshot(Request $request){
         $client = new Client();
+
         $url = $request->request->get('url');
 
         dump($url);

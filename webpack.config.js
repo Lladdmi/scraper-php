@@ -25,7 +25,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('scripts', './assets/js/scripts.js')
-    .addEntry('vue', './assets/js/main.js')
+    // .addEntry('vue', './assets/js/main.js')
 
     .addStyleEntry('global', './assets/css/global.scss')
     .addStyleEntry('css', './assets/css/app.css')
@@ -59,7 +59,7 @@ Encore
     // enables Sass/SCSS support
     .enableSassLoader()
 
-    .enableVueLoader()
+    // .enableVueLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
