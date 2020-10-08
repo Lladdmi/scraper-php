@@ -25,7 +25,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('scripts', './assets/js/scripts.js')
-    // .addEntry('vue', './assets/js/main.js')
+    .addEntry('diff', './assets/js/diff.js')
 
     .addStyleEntry('global', './assets/css/global.scss')
     .addStyleEntry('css', './assets/css/app.css')

@@ -1,4 +1,8 @@
+import {statusCodes} from "./statusCodes";
+import {showDiff, showDiffTable} from "./diff";
+
 $(document).ready(function(){
+
     $(".btn-check").click(function() {
         $('#code_info').removeClass(function (index, css) {
             return (css.match (/\bborder-\S+/g) || []).join(' ');
@@ -30,7 +34,7 @@ $(document).ready(function(){
                     4: 'border-warning',
                     5: 'border-danger'
                 }
-                $('.info-header').text('Status: '+data['status'])
+                $('.info-header').text(`Status: ${data['status']} (${statusCodes[data['status']]})`)
                 let similarity = data['similarity'].toFixed(2);
                 $('.info-similarity').text(`Zgodność: ${similarity}%`);
                 let count_changes = 0;

@@ -17,8 +17,12 @@ global.$ = global.jQuery = $;
 const Diff = require('diff/dist/diff')
 global.Diff = global.Diff = Diff;
 
+const ScrollBooster = require('scrollbooster/dist/scrollbooster.min')
+global.ScrollBooster = global.ScrollBooster = ScrollBooster;
+
 require('bootstrap');
 // require('vue');
+import {statusCodes} from "./statusCodes";
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 

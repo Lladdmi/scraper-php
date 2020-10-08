@@ -46,16 +46,19 @@ class WebsiteController extends AbstractController
         $website = $this->websiteSrv->findByUrl($url);
         $old_html = $website->getHtml();
 
-        $client = new Client(HttpClient::create(array(
-            'headers' => array(
-                'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                'Upgrade-Insecure-Requests' => '1',
-                'Save-Data' => 'on',
-                'Pragma' => 'no-cache',
-                'Cache-Control' => 'no-cache',
-                'Connection' => 'keep-alive'
-            ),
-        )));
+        $client = new Client();
+
+//        $client = new Client(HttpClient::create(array(
+//            'headers' => array(
+//                'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+//                'Upgrade-Insecure-Requests' => '1',
+//                'Save-Data' => 'on',
+//                'Referer' => $url,
+//                'Pragma' => 'no-cache',
+//                'Cache-Control' => 'no-cache',
+//                'Connection' => 'keep-alive'
+//            ),
+//        )));
         $client->setServerParameter('HTTP_USER_AGENT', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:81.0) Gecko/20100101 Firefox/81.0');
 
         $crawler = $client->request('GET', $url);

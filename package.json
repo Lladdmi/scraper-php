@@ -25,6 +25,7 @@
         "jquery": "^3.5.1",
         "node-html-parser": "^1.2.21",
         "popper.js": "^1.16.1",
+        "scrollbooster": "^3.0.2",
         "vue-scrollto": "^2.18.2"
     }
 }
